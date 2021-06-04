@@ -1,24 +1,61 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column     | Type   | Options     |
+| ---------- | ------ | ----------- |
+| nickname   | string | null: false |
+| email      | string | null: false |
+| password   | string | null: false |
+| name       | string | null: false |
+| kana       | string | null: false |
+| birthday   | string | null: false |
 
-* Ruby version
+## users アソシエーション
+has_many:items
+has_many:buy
+has_one:addres
 
-* System dependencies
+## items テーブル
 
-* Configuration
+| Column       | Type          | Options     |
+| ------------ | ------------- | ----------- |
+| image        | ActiveStorage | null: false |
+| product_name | string        | null: false |
+| description  | text          | null: false |
+| user_id      | references    |             |
 
-* Database creation
+## items アソシエーション
+belongs_to:user
+has_many:buy
 
-* Database initialization
+## buy テーブル
 
-* How to run the test suite
+| Column          | Type       | Options     |
+| --------------- | -----------| ----------- |
+| product_name    | string     | null: false |
+| card_pass       | string     | null: false |
+| expiration_date | string     | null: false |
+| security_code   | string     | null: false |
+| user_id         | references |             |
+| items_id        | references |             |
 
-* Services (job queues, cache servers, search engines, etc.)
+## buy アソシエーション
+has_many:items
+belongs_to:users
+has_one:address
 
-* Deployment instructions
+## address テーブル
 
-* ...
+| Column          | Type       | Options     |
+| --------------- | -----------| ----------- |
+| postal_ code    | string     | null: false |
+| prefectures     | string     | null: false |
+| municipality    | string     | null: false |
+| house_number    | string     | null: false |
+| building_name   | text       |             |
+| tel             | string     |             |
+
+## address アソシエーション
+has_one:buy
+has_one:users
