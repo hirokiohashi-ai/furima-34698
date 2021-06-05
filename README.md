@@ -2,45 +2,44 @@
 
 ## users テーブル
 
-| Column     | Type   | Options     |
-| ---------- | ------ | ----------- |
-| nickname   | string | null: false |
-| email      | string | null: false |
-| password   | string | null: false |
-| name       | string | null: false |
-| kana       | string | null: false |
-| birthday   | string | null: false |
+| Column              | Type   | Options                   |
+| ------------------- | ------ | ------------------------- |
+| nickname            | string | null: false               |
+| email               | string | null: false, unique: true |
+| encrypted_password  | string | null: false               |
+| first_name          | string | null: false               |
+| last_name           | string | null: false               |
+| first_kana          | string | null: false               |
+| last_kana           | string | null: false               |
+| birthday            | date   | null: false               |
+| activehash          | string | null: false               |
 
-## users アソシエーション
+## users Association
 has_many:items
 has_many:buy
 has_one:addres
 
 ## items テーブル
 
-| Column       | Type          | Options     |
-| ------------ | ------------- | ----------- |
-| image        | ActiveStorage | null: false |
-| product_name | string        | null: false |
-| description  | text          | null: false |
-| user_id      | references    |             |
+| Column       | Type          | Options           |
+| ------------ | ------------- | ----------------- |
+| product_name | string        | null: false       |
+| description  | text          | null: false       |
+| user         | references    | foreign_key: true |
 
-## items アソシエーション
+## items Association
 belongs_to:user
 has_many:buy
 
 ## buy テーブル
 
-| Column          | Type       | Options     |
-| --------------- | -----------| ----------- |
-| product_name    | string     | null: false |
-| card_pass       | string     | null: false |
-| expiration_date | string     | null: false |
-| security_code   | string     | null: false |
-| user_id         | references |             |
-| items_id        | references |             |
+| Column       | Type       | Options           |
+| ------------ | -----------| ----------------- |
+| product_name | string     | null: false       |
+| user         | references | foreign_key: true |
+| items        | references | foreign_key: true |
 
-## buy アソシエーション
+## buy Association
 has_many:items
 belongs_to:users
 has_one:address
@@ -53,9 +52,9 @@ has_one:address
 | prefectures     | string     | null: false |
 | municipality    | string     | null: false |
 | house_number    | string     | null: false |
-| building_name   | text       |             |
-| tel             | string     |             |
+| building_name   | string     |             |
+| tel             | string     | null: false |
 
-## address アソシエーション
+## address Association
 has_one:buy
 has_one:users
