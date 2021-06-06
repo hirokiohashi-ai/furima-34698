@@ -12,7 +12,7 @@
 | first_kana          | string | null: false               |
 | last_kana           | string | null: false               |
 | birthday            | date   | null: false               |
-| activehash          | string | null: false               |
+
 
 ## users Association
 has_many:items
@@ -21,11 +21,12 @@ has_one:addres
 
 ## items テーブル
 
-| Column       | Type          | Options           |
-| ------------ | ------------- | ----------------- |
-| product_name | string        | null: false       |
-| description  | text          | null: false       |
-| user         | references    | foreign_key: true |
+| Column       | Type       | Options           |
+| ------------ | ---------- | ----------------- |
+| product_name | string     | null: false       |
+| description  | text       | null: false       |
+| activehash   | string     | null: false       |
+| user         | references | foreign_key: true |
 
 ## items Association
 belongs_to:user
