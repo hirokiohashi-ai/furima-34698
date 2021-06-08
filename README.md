@@ -28,7 +28,7 @@ has_many:buys
 | category_id(active_hash)        | integer    | null: false       |
 | condition_id(active_hash)       | integer    | null: false       |
 | delivery_charge_id(active_hash) | integer    | null: false       |
-| shipment_source_id(active_hash) | integer    | null: false       |
+| prefectures_id(active_hash)     | integer    | null: false       |
 | days_to_ship_id(active_hash)    | integer    | null: false       |
 | user                            | references | foreign_key: true |
 
@@ -61,4 +61,4 @@ has_one:address
 | buy                         | references | foreign_key: true |
 
 ## address Association
-has_one:buy
+belongs_to:buy
