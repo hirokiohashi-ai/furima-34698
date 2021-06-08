@@ -16,21 +16,25 @@
 
 ## users Association
 has_many:items
-has_many:buy
+has_many:buys
 
 ## items テーブル
 
-| Column       | Type       | Options           |
-| ------------ | ---------- | ----------------- |
-| money        | integer    | null: false       |
-| product_name | string     | null: false       |
-| description  | text       | null: false       |
-| active_hash  | integer    | null: false       |
-| user         | references | foreign_key: true |
+| Column                        | Type       | Options           |
+| ----------------------------- | ---------- | ----------------- |
+| money                         | integer    | null: false       |
+| product_name                  | string     | null: false       |
+| description                   | text       | null: false       |
+| category(active_hash)         | integer    | null: false       |
+| condition(active_hash)        | integer    | null: false       |
+| delivery_charge(active_hash)  | integer    | null: false       |
+| shipment_source(active_hash)  | integer    | null: false       |
+| days_to_ship(active_hash)     | integer    | null: false       |
+| user                          | references | foreign_key: true |
 
 ## items Association
 belongs_to:user
-has_one:buy
+belongs_to:buy
 
 ## buy テーブル
 
@@ -40,7 +44,7 @@ has_one:buy
 | item         | references | foreign_key: true |
 
 ## buy Association
-has_one:items
+has_many:items
 belongs_to:user
 has_one:address
 
