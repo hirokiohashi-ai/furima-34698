@@ -44,7 +44,7 @@ has_one:buy
 | item         | references | foreign_key: true |
 
 ## buy Association
-belongs_to:items
+belongs_to:item
 belongs_to:user
 has_one:address
 
