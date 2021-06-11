@@ -1,24 +1,64 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column              | Type   | Options                   |
+| ------------------- | ------ | ------------------------- |
+| nickname            | string | null: false               |
+| email               | string | null: false, unique: true |
+| encrypted_password  | string | null: false               |
+| first_name          | string | null: false               |
+| last_name           | string | null: false               |
+| first_kana          | string | null: false               |
+| last_kana           | string | null: false               |
+| birthday            | date   | null: false               |
 
-* Ruby version
 
-* System dependencies
+## users Association
+has_many:items
+has_many:buys
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column                          | Type       | Options           |
+| ------------------------------- | ---------- | ----------------- |
+| money                           | integer    | null: false       |
+| product_name                    | string     | null: false       |
+| description                     | text       | null: false       |
+| category_id(active_hash)        | integer    | null: false       |
+| condition_id(active_hash)       | integer    | null: false       |
+| delivery_charge_id(active_hash) | integer    | null: false       |
+| prefectures_id(active_hash)     | integer    | null: false       |
+| days_to_ship_id(active_hash)    | integer    | null: false       |
+| user                            | references | foreign_key: true |
 
-* Database initialization
+## items Association
+belongs_to:user
+has_one:buy
 
-* How to run the test suite
+## buy テーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column       | Type       | Options           |
+| ------------ | -----------| ----------------- |
+| user         | references | foreign_key: true |
+| item         | references | foreign_key: true |
 
-* Deployment instructions
+## buy Association
+belongs_to:item
+belongs_to:user
+has_one:address
 
-* ...
+## address テーブル
+
+| Column                      | Type       | Options           |
+| --------------------------- | -----------| ----------------- |
+| postal_ code                | string     | null: false       |
+| prefectures_id(active_hash) | integer    | null: false       |
+| municipality                | string     | null: false       |
+| house_number                | string     | null: false       |
+| building_name               | string     |                   |
+| tel                         | string     | null: false       |
+| buy                         | references | foreign_key: true |
+
+## address Association
+belongs_to:buy
